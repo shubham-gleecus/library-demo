@@ -1,0 +1,3 @@
+.container
+  = render 'books/form', url: author_books_path(params[:author_id]), request_method: :post,
+     back_url: author_path(params[:author_id])

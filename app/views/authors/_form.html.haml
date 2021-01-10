@@ -1,0 +1,39 @@
+.d-flex.justify-content-between.align-items-center.pb-1
+.row
+  .col-xl-6.order-xl-1
+    = form_for @author, url: url, method: request_method, remote: true, html: { id: 'remote-form', class:'authors-form'} do |f|
+      .card.bg-light.shadow
+        .card-header.bg-white.border-1.py-3
+          .row.align-items-center
+            .col-8
+              %h3.text-center
+                = request_method.eql?(:post) ?  'Create Author' :  'Edit Author'
+            .col-4.text-right
+              %a.btn.btn-sm.btn-default{href: authors_path}
+                %i.fas.fa-arrow-alt-circle-left
+                Back to author list
+        .card-body
+          .row
+            .col-md-6
+              .form-group
+                %label.placeholder{for: 'first_name'}
+                  %b First Name
+                = f.text_field :first_name, placeholder: 'First Name', class: 'form-control'
+            -#%small#emailHelp2.form-text.text-muted We'll never share your email with anyone else.
+          .row
+            .col-md-6
+              .form-group
+                %label.placeholder{for: 'last_name'}
+                  %b Last Name
+                = f.text_field :last_name, placeholder: 'Last Name', class: 'form-control'
+          .row
+            .col-md-6
+              .form-group
+                %label.placeholder{for: 'date_of_birth'}
+                  %b Date of Birth
+                = f.text_field :date_of_birth, placeholder: 'Date of Birth', class: 'form-control', type: 'date'
+        .card-footer.bg-white
+          .row.text-center
+            .col-6
+              %button.btn.btn-primary.btn-md.disable-submit-btn{type: 'submit'}
+                = request_method.eql?(:post) ?  'Submit' : 'Update'

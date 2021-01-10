@@ -1,0 +1,63 @@
+.container.m-5.p-5
+  .row
+    .col-xl-12.order-xl-1
+      .card.shadow-lg
+        .card-header.bg-light.border-1
+          .row.align-items-center
+            .col-8
+              %h1.font-weight-bold.text-center Author Details
+            .col-4
+              %p.mb-2
+              %a.btn.btn-sm.btn-block.btn-secondary.text-left{href: authors_path}
+                %span.font-weight-bold.ml-1 List All Authors
+                %span.float-right
+                  %i.fas.fa-arrow-alt-circle-right
+        .card-body.bg-white
+          .table-responsive
+            %table.table.align-items-center.table-flush
+              %tbody.thead-light
+                %tr.text-left
+                  %td.py-2.font-weight-bold First Name
+                  %td.py-2
+                    .text-default= @author.first_name
+                %tr.text-left
+                  %td.py-2.font-weight-bold Last Name
+                  %td.py-2
+                    .text-default= @author.last_name
+                %tr.text-left
+                  %td.py-2.font-weight-bold Date of Birth
+                  %td.py-2= @author.date_of_birth
+.container.m-5.p-5
+  .row
+    .col
+      .card.shadow-lg
+        .card-header.border-1
+          .row.align-items-center
+            %h1.card-title.text-center Books
+            .col.text-right.pr-5
+              %a.btn.btn-sm.btn-primary.font-weight-bold{:href => new_author_book_path(@author.id)}
+                Add
+          .table-responsive
+            %table#admin-users-table.table.align-items-center.table-flush.mb-0
+              %thead.thead-light
+                %tr
+                  %th Book Title
+                  %th Action
+              %tbody
+                - if @books.blank?
+                  %tr.text-center
+                    %td.text-danger{colspan: '7'} No Book found
+                - else
+                  - @books.each do |book|
+                    %tr
+                      %td.font.text-underline
+                        = book.book_title
+                      %td
+                        %a.ml-1.text-primary{href: edit_author_book_path(@author.id, book.id),
+                                             data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit Book'}
+                          %span Edit
+                        %a.ml-1.text-danger.remote-link{href:  author_book_path(@author.id, book.id),
+                                                        title: 'Delete Book',
+                                                        data: { remote: 'true', toggle: 'tooltip', placement: 'top',
+                                                                method: :delete, confirm: 'Are you sure?'}}
+                          %span Delete
